@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DORMEDS – Pharmacy Management System</title>
+  <meta name="description" content="DORMEDS is a complete medicine delivery and pharmacy management platform for modern pharmacies." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+  <!-- Toast Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- App Root -->
+  <div id="app">
+    <!-- Login Page -->
+    <div id="login-page" class="login-page hidden">
+      <div class="login-bg">
+        <div class="login-blob blob1"></div>
+        <div class="login-blob blob2"></div>
+        <div class="login-blob blob3"></div>
+      </div>
+      <div class="login-card glass-card">
+        <div class="login-brand">
+          <div class="brand-logo">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="12" fill="url(#grad)"/>
+              <path d="M20 8v24M8 20h24" stroke="white" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="20" cy="20" r="6" fill="white" opacity="0.3"/>
+              <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="40" y2="40">
+                  <stop stop-color="#6366f1"/>
+                  <stop offset="1" stop-color="#22d3ee"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <h1 class="brand-name">DORMEDS</h1>
+            <p class="brand-tagline">Pharmacy Management System</p>
+          </div>
+        </div>
+        <h2 class="login-title">Welcome Back</h2>
+        <p class="login-subtitle">Sign in to your account to continue</p>
+        <form id="login-form" class="login-form" novalidate>
+          <div class="form-group">
+            <label for="login-email">Email / Username</label>
+            <div class="input-wrapper">
+              <i data-lucide="mail" class="input-icon"></i>
+              <input type="text" id="login-email" placeholder="Enter your email" autocomplete="username" />
+            </div>
+            <span class="field-error" id="email-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="input-wrapper">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" />
+              <button type="button" class="eye-toggle" id="toggle-password" aria-label="Toggle password visibility">
+                <i data-lucide="eye" id="eye-icon"></i>
+              </button>
+            </div>
+            <span class="field-error" id="password-error"></span>
+          </div>
+          <div class="login-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="remember-me" />
+              <span class="checkmark"></span>
+              Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">
+            <span class="btn-text">Sign In</span>
+            <span class="btn-loader hidden"></span>
+          </button>
+          <div class="login-demo-creds">
+            <p class="demo-title">Demo Credentials</p>
+            <div class="demo-cards">
+              <button type="button" class="demo-card" onclick="fillDemo('admin')">
+                <i data-lucide="shield-check"></i>
+                <span>Admin</span>
+                <small>admin / admin123</small>
+              </button>
+              <button type="button" class="demo-card" onclick="fillDemo('pharmacy')">
+                <i data-lucide="pill"></i>
+                <span>Pharmacy</span>
+                <small>pharmacy / pharm123</small>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <button class="theme-toggle-login" id="theme-toggle-login" aria-label="Toggle theme">
+        <i data-lucide="sun" id="theme-icon-login"></i>
+      </button>
+    </div>
+
+    <!-- Main App Layout -->
+    <div id="main-layout" class="main-layout hidden">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-brand">
+            <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="12" fill="url(#grad2)"/>
+              <path d="M20 8v24M8 20h24" stroke="white" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="20" cy="20" r="6" fill="white" opacity="0.3"/>
+              <defs>
+                <linearGradient id="grad2" x1="0" y1="0" x2="40" y2="40">
+                  <stop stop-color="#6366f1"/>
+                  <stop offset="1" stop-color="#22d3ee"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="sidebar-brand-name">DORMEDS</span>
+          </div>
+          <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="sidebar-user">
+          <div class="user-avatar" id="sidebar-avatar">A</div>
+          <div class="user-info">
+            <p class="user-name" id="sidebar-username">Admin</p>
+            <p class="user-role" id="sidebar-role">Administrator</p>
+          </div>
+        </div>
+        <nav class="sidebar-nav" id="sidebar-nav"></nav>
+        <div class="sidebar-footer">
+          <button class="theme-toggle" id="theme-toggle">
+            <i data-lucide="sun" id="theme-icon"></i>
+            <span id="theme-label">Light Mode</span>
+          </button>
+          <button class="btn-logout" id="logout-btn">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+      <!-- Main Content -->
+      <div class="content-area">
+        <header class="top-bar">
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="top-bar-title">
+            <h2 id="page-title">Dashboard</h2>
+            <nav class="breadcrumb" id="breadcrumb"></nav>
+          </div>
+          <div class="top-bar-actions">
+            <button class="icon-btn" id="notif-btn" aria-label="Notifications">
+              <i data-lucide="bell"></i>
+              <span class="badge" id="notif-badge">3</span>
+            </button>
+            <div class="user-chip" id="user-chip">
+              <div class="user-avatar-sm" id="top-avatar">A</div>
+              <span id="top-username">Admin</span>
+            </div>
+          </div>
+        </header>
+        <main class="page-content" id="page-content">
+          <!-- Pages are injected here -->
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Container -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-box" id="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Close modal">
+        <i data-lucide="x"></i>
+      </button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/pages/admin/dashboard.js"></script>
+  <script src="js/pages/admin/pharmacies.js"></script>
+  <script src="js/pages/admin/subscriptions.js"></script>
+  <script src="js/pages/admin/revenue.js"></script>
+  <script src="js/pages/admin/support-admin.js"></script>
+  <script src="js/pages/admin/users.js"></script>
+  <script src="js/pages/pharmacy/dashboard.js"></script>
+  <script src="js/pages/pharmacy/inventory.js"></script>
+  <script src="js/pages/pharmacy/orders.js"></script>
+  <script src="js/pages/pharmacy/documents.js"></script>
+  <script src="js/pages/pharmacy/billing.js"></script>
+  <script src="js/pages/pharmacy/returns.js"></script>
+  <script src="js/pages/pharmacy/expiry.js"></script>
+  <script src="js/pages/pharmacy/support.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
